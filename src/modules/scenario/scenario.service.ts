@@ -2,29 +2,37 @@
 import { Injectable } from '@nestjs/common';
 import { CreateScenarioDto } from './dto/create-scenario.dto';
 import { UpdateScenarioDto } from './dto/update-scenario.dto';
-import { CreateScenarioUseCase } from './use-cases/create-scenario.use';
+import { CreateScenarioUseCase, ListScenarioUseCase, OneScenarioUseCase, RemoveScenarioUseCase, UpdateScenarioUseCase } from './use-cases';
+
+
 
 @Injectable()
 export class ScenarioService {
-  constructor(private readonly createScenarioUseCase: CreateScenarioUseCase){}
+  constructor(private readonly createScenarioUseCase: CreateScenarioUseCase,
+    private readonly listScenarioUseCase: ListScenarioUseCase,
+    private readonly oneScenarioUseCase: OneScenarioUseCase,
+    private readonly updateScenarioUseCase: UpdateScenarioUseCase,
+    private readonly removeScenarioUseCase: RemoveScenarioUseCase,
+  ){}
 
   create(data: CreateScenarioDto) {
-    return this.createScenarioUseCase.execute (data);
+    return this.createScenarioUseCase.execute(data);
   }
 
-  findAll() {
-    return `This action returns all scenario`;
-  }
+  findOne(id:string) {
+  return this.oneScenarioUseCase.execute(id);
+ }
 
-  findOne(id: number) {
-    return `This action returns a #${id} scenario`;
-  }
+ findAll() {
+  return this.listScenarioUseCase.execute();
+ }
 
-  update(id: number, updateScenarioDto: UpdateScenarioDto) {
-    return `This action updates a #${id} scenario`;
-  }
+update(id:string,data: UpdateScenarioDto){
+  return this.updateScenarioUseCase.execute(id,data);
+}
 
-  remove(id: number) {
-    return `This action removes a #${id} scenario`;
-  }
+delete(id:string){
+  return this.removeScenarioUseCase.execute(id);
+}
+
 }
