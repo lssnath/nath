@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 export class CreateOptionDto {
-    title: string;
+    name: string;
+    scenarioId: string;
     description: string;
     //   options: Option[];
 }
