@@ -2,6 +2,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateOptionDto } from './dto/create-option.dto';
 import { UpdateOptionDto } from './dto/update-option.dto';
+import { CreateOptionUseCase, ListOptionUseCase, OneOptionUseCase, RemoveOptionUseCase, UpdateOptionUseCase } from './use-cases';
 
 @Injectable()
 export class OptionService {
@@ -12,23 +13,23 @@ export class OptionService {
     private readonly removeOptionUseCase: RemoveOptionUseCase,
   ){}
 
-  create(createOptionDto: CreateOptionDto) {
-    return 'This action adds a new option';
+  create(data: CreateOptionDto) {
+    return this.createOptionUseCase.execute(data)
   }
 
   findAll() {
-    return `This action returns all option`;
+    return this.listOptionUseCase.execute()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} option`;
+  findOne(id: string) {
+    return this.oneOptionUseCase.execute(id)
   }
 
-  update(id: number, updateOptionDto: UpdateOptionDto) {
-    return `This action updates a #${id} option`;
+  update(id: string, data: UpdateOptionDto) {
+    return this.updateOptionUseCase.execute(id, data)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} option`;
+  remove(id: string) {
+    return this.removeOptionUseCase.execute(id)
   }
 }
